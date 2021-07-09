@@ -1,0 +1,93 @@
+//Kelompok: TEA Animation
+//Anggota Kelompok:
+//Adam A Maheswara            19523014
+//Elsa Kurniawati             19523113
+//Thalia Maharani Nur Handoko 19523022
+//
+//Matkul:Grafika dan Multimedia
+//Kelas: C
+//Dosen: Ibu SEPTIA RANI, S.T., M.CS.
+
+//import processing.sound.*;
+//SoundFile teaAudio;
+
+int t = 1;             //--> frame   
+int fadeOpacity = 255; //--> opacity untuk fade in (akan di increment berkurang)
+int fRate = 15;        //--> frame rate
+int fadeSecond = 5;    //--> detik ke berapa fade in?
+int fFade = fRate*fadeSecond; 
+PFont inter50;
+//PFont calibriDefault;
+
+Scene2Translasi myscene2;
+ZOrg orangLain;
+
+
+void setup() {
+  size(1280, 720);
+  background(255);
+  frameRate(fRate);
+  
+  
+    
+  //Memasukkan/load file suara ke sketch processing
+  //teaAudio = new SoundFile(this, "audio-disatukan-wav16bit.wav", false);
+  
+  //play audio tersebut
+  //teaAudio.play();
+  
+  //init
+  myscene2 = new Scene2Translasi();
+  orangLain = new ZOrg();
+}
+
+int dx2 = 0; //displacemet sbX scene2
+
+void draw(){
+  //textSize(10); text(textShown1, 0,10);
+   if(t > fFade){     
+     if((fadeOpacity!=0)&&fadeOpacity>0){fadeOpacity=fadeOpacity-16; }
+   }
+   background(255);
+   
+   if( (t/fRate)>0 && (t/fRate)<8){
+     myscene2.draw(0,0);
+   }if( (t/fRate)>=8 && (t/fRate)<18){
+     myscene2.draw(dx2,0); dx2++;
+   }if( (t/fRate)>=18 && (t/fRate)<30){
+     myscene2.draw(dx2,0); 
+     myscene2.orangLain(dx2+150, +10);
+     orangLain.draw1(dx2+300, -5);
+   }if( (t/fRate)>=30 && (t/fRate)<45){
+     myscene2.draw(dx2,0); 
+     orangLain.draw1(dx2+180, -10);
+   }
+   
+   fill(0,0,0,fadeOpacity);
+   beginShape(); 
+   rect(0,0,1280,720);
+   endShape(CLOSE);   
+   fill(255,255,255,fadeOpacity);
+   
+   inter50 = createFont("Inter-SemiBold.ttf", 50, true);
+   textFont(inter50); textSize(64);
+   text("''Jujur itu lebih baik''", 200, 300);
+   textSize(30); text("oleh TEA Animation.", 200, 350);
+   
+   
+   
+   if( (t/fRate)>= 166) {exit();}
+   //Line dibawah tidak diubah (untuk keperluan tes)
+   String textShown1 = "frame="+t; 
+   String textShown2 = "opacity="+fadeOpacity;
+   String textShown3 = "time="+(t/fRate)+"s";
+   fill(0); rect(0,0,100,45);
+   textSize(15); fill(255); 
+   //calibriDefault = createFont("Calibri", 10, true); 
+   //textFont(calibriDefault); //teks size 10, putih, dgn outline   
+   //stroke(1); strokeWeight(1);
+   text(textShown2, 0,30);
+   text(textShown1, 0,15);
+   text(textShown3, 0,45); 
+   
+t++;}
